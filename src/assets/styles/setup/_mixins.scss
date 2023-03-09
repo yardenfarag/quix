@@ -91,6 +91,23 @@
   }
 }
 
+@mixin transparent($color: black) {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: $color;
+}
+
+@mixin round($width) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+}
+
+@mixin pill() {
+  border-radius: 999px;
+}
+
 // Buttons
 
 // @mixin btn(
