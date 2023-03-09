@@ -17,6 +17,12 @@ export function getRandomInt(max: number, min = 0, isInclusive = false) {
     return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + (isInclusive ? 1 : 0)) + Math.ceil(min))
 }
 
+export function getVerticalHalf(ev: MouseEvent, el: HTMLElement){
+    const { offsetY } = ev
+        if (offsetY < el.offsetHeight / 2) return 'top'
+        else return 'bottom'
+}
+
 export function calcTotalHeight(sections: Section[], media: 'large' | 'medium' | 'small') {
     let height = 0
     for (let section of sections) {

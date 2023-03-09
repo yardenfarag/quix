@@ -3,7 +3,7 @@ import { Section } from "../../interfaces/dynamic-element"
 interface WapEditFooterProps {
     footer: Section
     media: 'large' | 'medium' | 'small',
-    selectedSection: HTMLElement | null
+    selectedSection: Section | null
 }
 
 export const WapEditFooter = (props: WapEditFooterProps) => {
