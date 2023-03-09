@@ -1,15 +1,20 @@
 import React from 'react';
-import { HashRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter as Router, Navigate, Route, Routes, Link } from 'react-router-dom'
 import HomePage from './views/HomePage';
 import WapList from './views/WapList';
 import WapEdit from './views/WapEdit';
 import WapPreview from './views/WapPreview';
+import './assets/styles/main.scss'
 
 function App() {
   return (
     <Router>
       <section className="App">
-
+        <nav className='flex between' style={{ width: '400px' }}>
+          <Link to='/website'>WapList</Link>
+          <Link to='/website/1'>WapPreview</Link>
+          <Link to='/website/1/edit'>WapEdit</Link>
+        </nav>
         <Routes>
           <Route path='/website/:id/edit' element={<WapEdit />} />
           <Route path='/website/:id' element={<WapPreview />} />
