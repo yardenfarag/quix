@@ -1,10 +1,15 @@
 import React, { useRef, useState } from 'react'
+import { WapEditFooter } from '../cmps/wap-edit/WapEditFooter'
+import { WapEditHeader } from '../cmps/wap-edit/WapEditHeader'
+import { WapEditOverlay } from '../cmps/wap-edit/WapEditOverlay'
+import { WapEditPanel } from '../cmps/wap-edit/WapEditPanel'
+import { WapEditSection } from '../cmps/wap-edit/WapEditSection'
 import { Section } from '../interfaces/dynamic-element'
 import { Cmp, Wap } from '../interfaces/wap'
 import { calcTotalHeight, makeId } from '../services/util.service'
 
 const WapEdit = () => {
-    const [site, setSite] = useState({
+    const [wap, setWap] = useState({
         id: makeId(),
         name: 'my wap',
         cmps: [] as Cmp[],
@@ -52,53 +57,19 @@ const WapEdit = () => {
             <div className="page-container flex">
                 <div className="wap-edit-page__tool-sidebar"
                     style={{ height: calcTotalHeight([...sections, header, footer], media) }}></div>
-                <div className='wap-edit-page__page grow-1'>
-                    {[header, ...sections, footer].map((section) => {
-                        return (<div
-                            data-id={section.id}
-                            data-kind={section.kind}
+                <main className='wap-edit-page__page grow-1'>
+                    <WapEditHeader header={header} media={media} selectedSection={selectedSection} />
+                    {sections.map((section) => {
+                        return (<WapEditSection
                             key={`wap-${section.kind}__${section.id}}`}
-                            ref={ref => section.ref = ref}
-                            className={`wap-${section.kind} ${selectedSection ? '' : 'dashed'}`}
-                            style={{ ...section.styles[media] }}
-                        >
-                        </div>)
+                            section={section} media={media} selectedSection={selectedSection}
+                        />)
                     })}
+                    <WapEditFooter footer={footer} media={media} selectedSection={selectedSection} />
 
-                </div>
-                <div className='wap-edit-page__side-panel'>
-                    {[header, ...sections, footer].map((section) => {
-                        return (<div
-                            data-id={section.id}
-                            data-kind={section.kind}
-                            key={`wap-${section.kind}-panel__${section.id}}`}
-                            ref={ref => section.panelRef = ref}
-                            className={`wap-${section.kind}-panel`}
-                            style={{ height: section.styles[media].height }}
-                        >
-                        </div>)
-                    })}
-                </div>
-
-                <div className="wap-edit-page__overlay absolute flex column"
-                    style={
-                        {
-                            height: calcTotalHeight([...sections, header, footer], media),
-                        }}
-                >
-                    {[header, ...sections, footer].map(section => {
-                        return (<div
-                            data-id={section.id}
-                            data-kind={section.kind}
-                            className={`wap-overlay grow-1 ${section.kind} ${selectedSection ? '' : 'dashed'}`}
-                            style={{height: section.styles[media].height}}
-                            key={`wap-overlay-${section.kind}__${section.id}}`}>
-                            <div className="dashed-pseudo" style={{ 
-                                marginInline: site.margin[media] + 'px',
-                                width: `calc(100% - ${2*site.margin[media]})`}}></div>
-                        </div>)
-                    })}
-                </div>
+                </main>
+                <WapEditPanel sections={[header, ...sections, footer]} media={media} />
+                <WapEditOverlay wap={wap} sections={[header, ...sections, footer]} selectedSection={selectedSection} media={media} />
             </div>
         </section>
     )
