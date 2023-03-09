@@ -37,7 +37,7 @@
 	justify-content: space-around;
 }
 
-.flex.grow{
+.grow{
 	&-1{
 		flex-grow: 1;
 	}
@@ -57,7 +57,7 @@
 		flex-grow: 6;
 	}
 }
-.flex.shrink{
+.shrink{
 	&-1{
 		flex-shrink: 1;
 	}

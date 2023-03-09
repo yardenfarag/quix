@@ -1,3 +1,5 @@
+import { Section } from "../interfaces/dynamic-element"
+
 export function makeId(blockSize = 5, blockCount = 2) {
     const CHARS = 'abcdefghojklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0987654321'
     let id = ''
@@ -14,6 +16,32 @@ export function makeId(blockSize = 5, blockCount = 2) {
 export function getRandomInt(max: number, min = 0, isInclusive = false) {
     return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + (isInclusive ? 1 : 0)) + Math.ceil(min))
 }
+
+export function calcTotalHeight(sections: Section[], media: 'large' | 'medium' | 'small') {
+    let height = 0
+    for (let section of sections) {
+        height += extractCSSValue(section.styles[media as keyof typeof section.styles].height || '400')
+    }
+    return height
+}
+
+export function extractCSSValue(value: string) {
+    const num = value.match(/\d+(\.\d+)?/)
+    return parseInt(num ? num[0] : '0')
+}
+
+// export function getCSS(styles: { [key: string]: string | number }) {
+//     const css = {} as { [key: string]: string }
+//     for (let key in styles){
+//         switch (key) {
+//             case 'width':
+//             case 'height':
+//             case 'top':
+//             case 'bottom':
+
+//         }
+//     }
+// }
 
 // export function getElementCorners(el: HTMLElement) {
 //     const tl = {

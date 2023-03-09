@@ -3,6 +3,11 @@ export interface Wap {
     name: string
     imgUrl: string
     cmps: Cmp[]
+    margin:{
+        small:number
+        medium:number
+        large:number
+    }
 
 }
 

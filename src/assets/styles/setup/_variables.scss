@@ -12,6 +12,7 @@ $clr5: rgb(255 251 240);
 // LAYOUT
 $layoutPadding: 40px;
 $layoutBeta: 146px;
+$header-height: 60px;
 
 // LAYOUT BREAKPOINTS
 $break-mobile: 580px;
@@ -25,7 +26,15 @@ $padded-break-narrow: $break-narrow + $layoutPadding * 2;
 $padded-break-normal: $break-normal + $layoutPadding * 2;
 $padded-break-wide: $break-wide + $layoutPadding * 2;
 
+// Sizes
+$edit-panel-width: 40px;
+$edit-tool-sidebar: 60px;
+
 // Palette
+
+// Backgrounds
+$edit-background: #eff0f3;
+
 // Blacks
 $ultra-black: #000000;
 $dark-black: #141414;

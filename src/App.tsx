@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <section className="App">
-        <nav className='flex between' style={{ width: '400px' }}>
+        <nav className='app-header flex between' style={{ width: '400px' }}>
           <Link to='/website'>WapList</Link>
           <Link to='/website/1'>WapPreview</Link>
           <Link to='/website/1/edit'>WapEdit</Link>
