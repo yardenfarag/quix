@@ -6,7 +6,7 @@ interface WapEditOverlayProps {
     sections: Section[]
     media: 'large' | 'medium' | 'small'
     wap: Wap
-    selectedSection: HTMLElement | null
+    selectedSection: Section | null
 }
 export const WapEditOverlay = (props: WapEditOverlayProps) => {
     const { sections, media, wap, selectedSection } = props
