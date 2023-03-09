@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { WapEditFooter } from '../cmps/wap-edit/WapEditFooter'
+import { WapEditFooter } from '../cmps/wap-edit/FooterSection'
 import { WapEditHeader } from '../cmps/wap-edit/WapEditHeader'
-import { WapEditHover } from '../cmps/wap-edit/WapEditHover'
-import { WapEditOverlay } from '../cmps/wap-edit/WapEditOverlay'
+import { SectionMouseOver } from '../cmps/wap-edit/SectionMouseOver'
+import { Overlay } from '../cmps/wap-edit/Overlay'
 import { WapEditPanel } from '../cmps/wap-edit/WapEditPanel'
 import { WapEditSection } from '../cmps/wap-edit/WapEditSection'
 import { Section } from '../interfaces/dynamic-element'
@@ -35,6 +35,14 @@ const WapEdit = () => {
             styles: { small: {}, medium: {}, large: { height: '400px' } },
             ref: null,
             panelRef: null
+        },
+        {
+            id: makeId(),
+            name: '',
+            kind: 'section',
+            styles: { small: {}, medium: {}, large: { height: '400px' } },
+            ref: null,
+            panelRef: null
         }
     ] as Section[])
 
@@ -56,11 +64,15 @@ const WapEdit = () => {
     } as Section)
 
     const hoverHandler = (ev: MouseEvent) => {
-        if (!(ev.target as HTMLElement).classList.contains('add-section-btn')) hoveredSectionHandler(ev)
-
+        hoveredSectionHandler(ev)
     }
 
-    const hoveredSectionHandler = (ev: MouseEvent) => {
+    const clickHandler = (ev: MouseEvent) => {
+        const foundSection = getSectionUnderPointer(ev)
+        if (selectedSection !== foundSection) setSelectedSection(foundSection)
+    }
+
+    const getSectionUnderPointer = (ev: MouseEvent) => {
         const { clientX, clientY } = ev
         let foundSection: Section | null = null
         for (let section of [header, ...sections, footer]) {
@@ -71,17 +83,28 @@ const WapEdit = () => {
                 break
             }
         }
+        return foundSection
+    }
+
+    const hoveredSectionHandler = (ev: MouseEvent) => {
+        const target = ev.target! as HTMLElement
+        if (target.classList.contains('add-section-btn')) return
+
+        const foundSection = getSectionUnderPointer(ev)
         const position = foundSection ? getVerticalHalf(ev, foundSection.ref!) : addSectionPosition
         if (position !== addSectionPosition) setAddSectionPosition(position)
+
         if (!foundSection || foundSection !== hoveredSection) setHoveredSection(foundSection)
     }
 
     useEffect(() => {
 
         document.addEventListener('mousemove', hoverHandler)
+        document.addEventListener('click', clickHandler)
 
         return () => {
             document.removeEventListener('mousemove', hoverHandler)
+            document.removeEventListener('click', clickHandler)
         }
     })
 
@@ -91,8 +114,9 @@ const WapEdit = () => {
                 <div className="wap-edit-page__tool-sidebar"
                     style={{ height: calcTotalHeight([...sections, header, footer], media) }}></div>
                 <main className='wap-edit-page__page grow-1 relative'>
-                    {hoveredSection?.ref && hoveredSection.id !== selectedSection?.id &&
-                        <WapEditHover section={hoveredSection} sections={[header, ...sections, footer]} media={media} buttonPosition={addSectionPosition} />}
+                    {hoveredSection?.ref && <SectionMouseOver section={hoveredSection} sections={[header, ...sections, footer]} media={media} buttonPosition={addSectionPosition} selectedSection={selectedSection}/>}
+                    {selectedSection?.ref && <SectionMouseOver section={selectedSection} sections={[header, ...sections, footer]} media={media} buttonPosition={((selectedSection === hoveredSection) && addSectionPosition)} selectedSection={selectedSection}/>}
+                    {/* {selectedSection && <SelectedSectionOverlay section={selectedSection} sections={[header, ...sections, footer]} media={media} />} */}
                     <WapEditHeader header={header} media={media} selectedSection={selectedSection} />
                     {sections.map((section) => {
                         return (<WapEditSection
@@ -104,7 +128,7 @@ const WapEdit = () => {
 
                 </main>
                 <WapEditPanel sections={[header, ...sections, footer]} media={media} />
-                <WapEditOverlay wap={wap} sections={[header, ...sections, footer]} selectedSection={selectedSection} media={media} />
+                <Overlay wap={wap} sections={[header, ...sections, footer]} selectedSection={selectedSection} media={media} />
             </div>
         </section>
     )

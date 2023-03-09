@@ -8,7 +8,7 @@ interface WapEditOverlayProps {
     wap: Wap
     selectedSection: Section | null
 }
-export const WapEditOverlay = (props: WapEditOverlayProps) => {
+export const Overlay = (props: WapEditOverlayProps) => {
     const { sections, media, wap, selectedSection } = props
 
     return (
@@ -25,10 +25,11 @@ export const WapEditOverlay = (props: WapEditOverlayProps) => {
                     className={`wap-overlay ${section.kind === 'footer' ? 'grow-1' : ''} ${section.kind} ${selectedSection ? '' : 'dashed'}`}
                     style={{ height: section.styles[media].height }}
                     key={`wap-overlay-${section.kind}__${section.id}}`}>
-                    <div className="dashed-pseudo" style={{
+                    { (!selectedSection || selectedSection.id === section.id) &&
+                        <div className="dashed-pseudo" style={{
                         marginInline: wap.margin[media] + 'px',
                         width: `calc(100% - ${2 * wap.margin[media]})`
-                    }}></div>
+                    }}></div>}
                 </div>)
             })}
         </section>
