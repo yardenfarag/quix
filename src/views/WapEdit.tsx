@@ -2,7 +2,11 @@ import React from 'react'
 
 const WapEdit = () => {
     return (
-        <div>WapEdit</div>
+        <section className='wap-edit-page'>
+            <div className='wap-edit-page__page'>
+
+            </div>
+        </section>
     )
 }
 
