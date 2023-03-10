@@ -7,17 +7,18 @@ interface WapEditOverlayProps {
     media: 'large' | 'medium' | 'small'
     wap: Wap
     selectedSection: Section | null
+    pageRef: HTMLElement | null
 }
 export const Overlay = (props: WapEditOverlayProps) => {
-    const { sections, media, wap, selectedSection } = props
+    const { sections, media, wap, selectedSection, pageRef } = props
+
+    const margin = !pageRef
+        ? wap.styles[media].margin
+        : pageRef.offsetWidth
+
 
     return (
-        <section className="wap-edit-page__overlay absolute flex column"
-            style={
-                {
-                    height: calcTotalHeight(sections, media),
-                }}
-        >
+        <section className="wap-edit-page__overlay absolute flex column">
             {sections.map(section => {
                 return (<div
                     data-id={section.id}
@@ -27,8 +28,9 @@ export const Overlay = (props: WapEditOverlayProps) => {
                     key={`wap-overlay-${section.kind}__${section.id}}`}>
                     { (!selectedSection || selectedSection.id === section.id) &&
                         <div className="dashed-pseudo" style={{
-                        marginInline: wap.margin[media] + 'px',
-                        width: `calc(100% - ${2 * wap.margin[media]})`
+                        marginInline: 'auto',
+                        maxWidth: wap.styles[media].maxWidth || 'auto',
+                        width: `calc(100% - 2*${wap.styles[media].margin})`
                     }}></div>}
                 </div>)
             })}
