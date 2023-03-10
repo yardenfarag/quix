@@ -19,5 +19,11 @@ export interface Wap {
 export interface Cmp {
     id: string
     txt: string
-    style: {}
+    name: string
+    kind: string
+    styles: {
+        small: {[key: string]: string},
+        medium: {[key: string]: string},
+        large: {[key: string]: string},
+    }
 }
