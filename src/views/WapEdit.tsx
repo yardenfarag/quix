@@ -104,6 +104,7 @@ const WapEdit = () => {
 
     const mouseupHandler = (ev: MouseEvent) => {
         if (grabMode === 'add-el') positionAddedEl(ev)
+        setGrabMode('')
     }
 
     const mousedownHandler = (ev: MouseEvent) => {
