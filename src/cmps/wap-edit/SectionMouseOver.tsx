@@ -28,9 +28,9 @@ export const SectionMouseOver = (props: SectionMouseOverProps) => {
         <div className={`${selectedSection?.id === section.id ? 'overlay-selected' : 'overlay-hovered'} ${section.kind} absolute`}
             data-id={section.id}
             style={{
-                top: sectionIdx === 0 ? '0' : calcTotalHeight(sections.slice(0, sectionIdx), media) + 'px',
+                top: 0 + 'px',
                 height: section.styles[media].height,
-                width: (section?.ref?.offsetWidth || 0) + (section?.panelRef?.offsetWidth || 0) + 'px'
+                width: 100 + '%'
             }}
         >
             <span className={`section-title ${section.kind} flex center absolute`}>

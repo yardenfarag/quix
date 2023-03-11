@@ -2,14 +2,15 @@ type Props = {
     tag: keyof JSX.IntrinsicElements
     children: React.ReactNode
     attributes?: React.HTMLAttributes<Element>;
+    styles?: { [key: string]: string }
 }
 
 const DynEl = (props: Props) => {
-    const { tag, children, attributes } = props
+    const { tag, children, attributes, styles={} } = props
     const Element = tag
 
     return (
-        <Element {...attributes}>
+        <Element {...attributes} style={styles}>
             {children}
         </Element>
     )

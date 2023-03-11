@@ -75,6 +75,15 @@ export function rotateElement(el: HTMLElement, ev: MouseEvent) {
     return getRotationAngle(getElementCenter(el), { x, y })
 }
 
+export function debounce<T extends Function>(cb: T, wait = 200) {
+    let h: NodeJS.Timeout | number = 0;
+    let callable = (...args: any) => {
+        clearTimeout(h);
+        h = setTimeout(() => cb(...args), wait);
+    };
+    return <T>(<any>callable);
+}
+
 function getElementCenter(el: HTMLElement) {
     const { top, left, width, height } = el.getBoundingClientRect()
     const x = left + width / 2

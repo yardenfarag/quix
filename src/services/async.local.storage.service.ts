@@ -15,13 +15,6 @@ const DUMMY_WAPS = [
     }
 ]
 
-export const storageService = {
-    query,
-    get,
-    post,
-    put,
-    remove,
-}
 
 function query(entityType: string, delay: number = 500): Promise<any> {
     const storedValue = localStorage.getItem(entityType);
@@ -81,4 +74,12 @@ function _makeId(length = 5) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+export const storageService = {
+    query,
+    get,
+    post,
+    put,
+    remove,
 }

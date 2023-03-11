@@ -2,11 +2,8 @@
 
 $clr1: rgb(255 251 240);
 $clr2: rgb(175 117 55);
-;
 $clr3: rgb(255 223 123);
-;
 $clr4: rgb(238 195 115);
-;
 $clr5: rgb(255 251 240);
 
 // LAYOUT
@@ -28,22 +25,37 @@ $padded-break-wide: $break-wide + $layoutPadding * 2;
 
 // Sizes
 $edit-panel-width: 40px;
-$edit-tool-sidebar: 60px;
+$edit-tool-sidebar-width: 60px;
 
 // Palette
 
 // Backgrounds
 $edit-background: #eff0f3;
+$easy-gray-background:#f7f8f8;
 
 // Borders
 $selected-section-border-color: #6f56f9;
-$hovered-section-border-color:#dad2fe;
+$hovered-section-border-color: #dad2fe;
 
 $selected-header-border-color: #fd620d;
-$hovered-header-border-color:#fcd2ba;
+$hovered-header-border-color: #fcd2ba;
 
 $selected-footer-border-color: #ff620d;
-$hovered-footer-border-color:#fcd2ba;
+$hovered-footer-border-color: #fcd2ba;
+
+$menu-border-color: #dfe5eb;
+
+// Fills
+$hard-black: #17191C;
+$text-black: #000624;
+$easy-black :#2d3034;
+$element-blue: #116dff;
+$element-bg-blue: #ebf2ff;
+$button-hover-bg: #f7f8f8;
+$bg-semi-blue: #e7f0ff;
+$bg-selected-blue:#d6e6fe;
+$menu-item-hover-color:#2b5672;
+
 
 // Blacks
 $ultra-black: #000000;

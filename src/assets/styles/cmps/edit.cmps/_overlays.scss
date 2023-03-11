@@ -1,0 +1,252 @@
+.wap-edit-page {
+    .page-container {
+
+        .wap-edit-page {
+
+            &__page {
+
+                .overlay-hovered,
+                .overlay-selected {
+                    pointer-events: none;
+
+
+                    &:before,
+                    &:after {
+                        content: "";
+                        width: 200vw;
+                        height: calc(100% + 7px);
+                        display: none;
+                        position: absolute;
+                        z-index: -1;
+                        left: -100%;
+                        top: -4px;
+                    }
+
+                    &:before {
+
+                        background-image: linear-gradient(to right, black 50%, rgba(255, 255, 255, 0) 0%);
+                        background-position: top;
+                        background-size: 10px 1px;
+                        background-repeat: repeat-x;
+                    }
+
+                    &:after {
+
+                        background-image: linear-gradient(to right, black 50%, rgba(255, 255, 255, 0) 0%);
+                        background-position: bottom;
+                        background-size: 10px 1px;
+                        background-repeat: repeat-x;
+                    }
+
+                    .add-section-btn {
+                        pointer-events: all;
+                        left: 50%;
+                        transform: translate(-50%, calc(-50% + 2px));
+                        @include pill();
+                        font-size: 1rem;
+                        font-weight: 100;
+                        border: none;
+                        color: #fff;
+                        padding: 5px 15px;
+                        cursor: pointer;
+                        z-index: 15;
+                        background-color: $selected-section-border-color;
+
+                        &:hover {
+                            background-color: darken($selected-section-border-color, 5%);
+                        }
+                    }
+
+                    .resize-btn {
+                        pointer-events: all;
+                        z-index: 20;
+                        color: #fff;
+                        font-size: 1.2em;
+                        border: none;
+                        cursor: ns-resize;
+                        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+                        bottom: -3px;
+                        transform: translateY(50%);
+                        padding: 2px 12px;
+                        border-radius: 4px;
+                        left: calc(50% + 200px)
+                    }
+
+                    .section-title {
+                        bottom: 100%;
+                        right: 0;
+                        z-index: 1;
+                        color: #fff;
+                        padding: 5px 8px;
+                    }
+
+                    &.section {
+                        .resize-btn {
+                            background-color: $selected-section-border-color;
+                        }
+                    }
+
+                    &.header {
+                        .resize-btn {
+                            background-color: $selected-header-border-color;
+                        }
+                    }
+
+                    &.footer {
+                        .resize-btn {
+                            background-color: $selected-footer-border-color;
+                        }
+                    }
+                }
+
+                .overlay-hovered {
+                    display: none;
+
+                    &.section {
+                        border: 3px solid $hovered-section-border-color;
+                        background-color: rgba($hovered-section-border-color, .4);
+
+                        .section-title {
+                            background-color: $hovered-section-border-color;
+                            color: $selected-section-border-color;
+                        }
+                    }
+
+                    &.header {
+                        border: 3px solid $hovered-header-border-color;
+                        background-color: rgba($hovered-header-border-color, .4);
+
+                        .section-title {
+                            background-color: $hovered-header-border-color;
+                            color: $selected-header-border-color;
+                            bottom: unset;
+                            top: 0;
+                        }
+                    }
+
+                    &.footer {
+                        border: 3px solid $hovered-footer-border-color;
+                        background-color: rgba($hovered-footer-border-color, .4);
+
+                        .section-title {
+                            background-color: $hovered-footer-border-color;
+                            color: $selected-footer-border-color;
+                        }
+                    }
+                }
+
+                .overlay-selected {
+                    &.section {
+                        border: 3px solid $selected-section-border-color;
+
+                        .section-title {
+                            background-color: $selected-section-border-color;
+                        }
+
+                        .add-section-btn {
+                            background-color: $selected-section-border-color;
+
+                            &:hover {
+                                background-color: darken($selected-section-border-color, 5%);
+                            }
+                        }
+                    }
+
+                    &.header {
+                        border: 3px solid $selected-header-border-color;
+
+                        .section-title {
+                            background-color: $selected-header-border-color;
+                            bottom: unset;
+                            top: 0;
+                        }
+                    }
+
+                    &.footer {
+                        border: 3px solid $selected-footer-border-color;
+
+                        .section-title {
+                            background-color: $selected-footer-border-color;
+                        }
+                    }
+                }
+
+                .wap-header,
+                .wap-footer,
+                .wap-section {
+
+                    &:hover {
+                        .overlay-hovered {
+                            display: block;
+                        }
+
+                        .overlay-hovered,
+                        .overlay-selected {
+
+                            &:before,
+                            &:after {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .wap-header {
+                    &.dashed:before {
+                        background-image: linear-gradient(to right, black 50%, rgba(255, 255, 255, 0) 0%);
+                        background-position: bottom;
+                        background-size: 10px 1px;
+                        background-repeat: repeat-x;
+                    }
+                }
+
+                .wap-footer {
+                    &.dashed:before {
+                        background-image: linear-gradient(to right, black 50%, rgba(255, 255, 255, 0) 0%);
+                        background-position: top;
+                        background-size: 10px 1px;
+                        background-repeat: repeat-x;
+                    }
+                }
+            }
+
+            &__overlay {
+                width: calc(100% - $edit-panel-width - $edit-tool-sidebar-width);
+                left: $edit-tool-sidebar-width;
+                min-height: 100%;
+                top: 0;
+                pointer-events: none;
+
+                .wap-overlay {
+                    width: 100%;
+
+                    .dashed-pseudo {
+                        height: 100%;
+                        background-image: linear-gradient(black 50%, rgba(255, 255, 255, 0) 0%);
+                        background-position: left;
+                        background-size: 1px 10px;
+                        background-repeat: repeat-y;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            background-image: linear-gradient(black 50%, rgba(255, 255, 255, 0) 0%);
+                            background-position: right;
+                            background-size: 1px 10px;
+                            background-repeat: repeat-y;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

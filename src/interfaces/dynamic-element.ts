@@ -1,3 +1,5 @@
+import React from "react"
+
 export interface Section {
     id: string
     kind: string
@@ -7,6 +9,28 @@ export interface Section {
         medium:{[key:string]:string}
         large:{[key:string]:string}
     }
-    ref: HTMLElement | null,
-    panelRef: HTMLElement | null
+    cmps: Cmp[]
+    ref: HTMLElement | null
+}
+
+export interface Kind {
+    title: string;
+    categories: {
+        title: string;
+        items: Cmp[];
+    }[];
+}
+
+export interface Cmp {
+    id: string
+    txt: string
+    name: string
+    tag: keyof JSX.IntrinsicElements
+    styles: {
+        small: {[key: string]: string},
+        medium: {[key: string]: string},
+        large: {[key: string]: string},
+    }
+    ref: HTMLElement | null
+    attributes?: React.HTMLAttributes<Element>
 }

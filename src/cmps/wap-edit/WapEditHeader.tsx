@@ -14,24 +14,21 @@ interface WapEditHeaderProps {
 
 export const WapEditHeader = (props: WapEditHeaderProps) => {
     const { header, media, selectedSection, sections, setSelectedSection, setGrabMode, grabMode } = props
-    const [isHovered, setIsHovered] = useState(false)
-    const hoverHandler = () => {
-        setIsHovered(true)
+
+
+    const mousedownHandler = () => {
+        setSelectedSection(header)
     }
 
-    const leaveHandler = () => [
-        setIsHovered(false)
-    ]
     return (
         <header
-            onMouseLeave={leaveHandler}
-            onMouseMove={hoverHandler}
+            onMouseDown={mousedownHandler}
             data-id={header.id}
             data-kind={header.kind}
             ref={ref => header.ref = ref}
             className={`wap-${header.kind} ${selectedSection ? '' : 'dashed'}`}
             style={{ ...header.styles[media] }}>
-            {(((isHovered && grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
+            {(((grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
         </header>
     )
 }

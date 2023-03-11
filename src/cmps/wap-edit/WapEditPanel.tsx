@@ -9,13 +9,12 @@ export const WapEditPanel = (props: WapEditPanelProps) => {
     const { sections, media } = props
     return (
 
-        <section className='wap-edit-page__side-panel'>
+        <section className='wap-edit-page__panel absolute'>
             {sections.map((section) => {
                 return (<div
                     data-id={section.id}
                     data-kind={section.kind}
                     key={`wap-${section.kind}-panel__${section.id}}`}
-                    ref={ref => section.panelRef = ref}
                     className={`wap-${section.kind}-panel`}
                     style={{ height: section.styles[media].height }}
                 >

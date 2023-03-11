@@ -14,24 +14,19 @@ interface WapEditFooterProps {
 
 export const WapEditFooter = (props: WapEditFooterProps) => {
     const { footer, media, selectedSection, sections, setSelectedSection, setGrabMode, grabMode } = props
-    const [isHovered, setIsHovered] = useState(false)
-    const hoverHandler = () => {
-        setIsHovered(true)
-    }
 
-    const leaveHandler = () => [
-        setIsHovered(false)
-    ]
+    const mousedownHandler = () => {
+        setSelectedSection(footer)
+    }
     return (
         <footer
-            onMouseLeave={leaveHandler}
-            onMouseMove={hoverHandler}
+            onMouseDown={mousedownHandler}
             data-id={footer.id}
             data-kind={footer.kind}
             ref={ref => footer.ref = ref}
             className={`wap-${footer.kind} ${selectedSection ? '' : 'dashed'}`}
             style={{ ...footer.styles[media] }}>
-            {(((isHovered && grabMode !== 'resize-section') || selectedSection?.id === footer.id)) && <SectionMouseOver section={footer} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
+            {(((grabMode !== 'resize-section') || selectedSection?.id === footer.id)) && <SectionMouseOver section={footer} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
         </footer>
     )
 }

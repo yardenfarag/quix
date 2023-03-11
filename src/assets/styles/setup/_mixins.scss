@@ -36,9 +36,7 @@
 
 @mixin layoutGTC($max) {
   grid-template-columns:
-    minmax($layoutPadding, 1fr)
-    minmax(auto, $max)
-    minmax($layoutPadding, 1fr);
+    minmax($layoutPadding, 1fr) minmax(auto, $max) minmax($layoutPadding, 1fr);
 }
 
 /* Media  Mixins */
@@ -47,20 +45,23 @@
 @mixin aspect-ratio($width: 1, $height: 1) {
   position: relative;
   overflow: hidden;
+
   &:before {
     content: '';
     display: block;
     width: 100%;
     padding-top: calc($height / $width) * 100%;
   }
-  > * {
+
+  >* {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
-  > img {
+
+  >img {
     height: 100%;
     object-fit: cover;
   }
@@ -74,6 +75,7 @@
     }
   }
 }
+
 // Label{
 
 @mixin label {
@@ -106,6 +108,41 @@
 
 @mixin pill() {
   border-radius: 999px;
+}
+
+@mixin menu-item() {
+  height: 30px;
+  width: fit-content;
+  @include pill();
+  cursor: pointer;
+  color: $text-black;
+  font-size: rem(14px);
+
+  @include hover-supported() {
+    &:not(.selected) {
+      background-color: $bg-semi-blue;
+      color: $element-blue;
+    }
+  }
+
+  &.selected {
+    color: $element-blue;
+    background-color: $bg-selected-blue;
+  }
+}
+
+@mixin round-btn() {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+
+  @include hover-supported() {
+    background-color: $button-hover-bg;
+  }
 }
 
 // Buttons
@@ -157,19 +194,26 @@
 // Type
 
 @mixin type($type: bold) {
+
   // type options:
   // 1.bold
   // 2.boldCondensed
   // 3.condensed
-  @if $type == bold {
+  @if $type ==bold {
     font-variation-settings: 'wght' 430;
-  } @else if $type == boldCondensed {
+  }
+
+  @else if $type ==boldCondensed {
     font-variation-settings: 'wght' 430, 'wdth' 80;
     letter-spacing: em(1.5px);
-  } @else if $type == condensed {
+  }
+
+  @else if $type ==condensed {
     font-variation-settings: 'wdth' 80;
     letter-spacing: em(6.72px);
-  } @else if $type == light {
+  }
+
+  @else if $type ==light {
     font-variation-settings: 'wght' 200;
   }
 }

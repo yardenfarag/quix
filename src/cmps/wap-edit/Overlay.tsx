@@ -18,22 +18,31 @@ export const Overlay = (props: WapEditOverlayProps) => {
 
 
     return (
-        <section className="wap-edit-page__overlay absolute flex column">
+        <section className="wap-edit-page__overlay absolute flex column" >
             {sections.map(section => {
                 return (<div
                     data-id={section.id}
                     data-kind={section.kind}
-                    className={`wap-overlay ${section.kind === 'footer' ? 'grow-1' : ''} ${section.kind} ${selectedSection ? '' : 'dashed'}`}
+                    className={`wap-overlay  ${section.kind} ${selectedSection ? '' : 'dashed'}`}
                     style={{ height: section.styles[media].height }}
                     key={`wap-overlay-${section.kind}__${section.id}}`}>
-                    { (!selectedSection || selectedSection.id === section.id) &&
+                    {(!selectedSection || selectedSection.id === section.id) &&
                         <div className="dashed-pseudo" style={{
-                        marginInline: 'auto',
-                        maxWidth: wap.styles[media].maxWidth || 'auto',
-                        width: `calc(100% - 2*${wap.styles[media].margin})`
-                    }}></div>}
+                            marginInline: 'auto',
+                            maxWidth: wap.styles[media].maxWidth || 'auto',
+                            width: `calc(100% - 2*${wap.styles[media].margin})`
+                        }}></div>}
                 </div>)
             })}
+            <div className={`wap-overlay ${!selectedSection ? 'dashed' : ''}`}
+                style={{ height: '60px' }}
+            >
+                {!selectedSection && <div className="dashed-pseudo" style={{
+                    marginInline: 'auto',
+                    maxWidth: wap.styles[media].maxWidth || 'auto',
+                    width: `calc(100% - 2*${wap.styles[media].margin})`
+                }}></div>}
+            </div>
         </section>
     )
 }
