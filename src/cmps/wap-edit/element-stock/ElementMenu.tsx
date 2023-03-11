@@ -55,7 +55,7 @@ export const ElMenu = (props: ElMenuProps) => {
                         <svg width="29" height="29" viewBox="0 0 29 29"><path fill="currentColor" d="M12.5 6a6.5 6.5 0 014.936 10.729l3.918 3.917-.708.708-3.917-3.918A6.5 6.5 0 1112.5 6zm0 1a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"></path></svg>
                         <span>Search</span>
                     </label>
-                    <button className="round-btn close-btn">
+                    <button className="round-btn close-btn" onClick={closeMenu}>
                         <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10.793 11.5 7.146 7.854 6.793 7.5l.707-.707.354.353 3.646 3.647 3.646-3.647.354-.353.707.707-.353.354-3.647 3.646 3.647 3.646.353.354-.707.707-.354-.353-3.646-3.647-3.646 3.647-.354.353-.707-.707.353-.354 3.647-3.646Z"></path></svg>
                     </button>
                 </div>
