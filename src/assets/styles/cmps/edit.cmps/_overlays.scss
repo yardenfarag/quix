@@ -218,8 +218,8 @@
             }
 
             &__overlay {
-                width: calc(100% - $edit-panel-width - $edit-tool-sidebar-width);
-                left: $edit-tool-sidebar-width;
+                width: calc(100% - $edit-panel-width);
+                // left: $edit-tool-sidebar-width;
                 min-height: 100%;
                 top: 0;
                 pointer-events: none;

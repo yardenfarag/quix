@@ -26,7 +26,7 @@ export const WapEditHeader = (props: WapEditHeaderProps) => {
             data-id={header.id}
             data-kind={header.kind}
             ref={ref => header.ref = ref}
-            className={`wap-${header.kind} ${selectedSection ? '' : 'dashed'}`}
+            className={`wap-${header.kind} relative ${selectedSection ? '' : 'dashed'}`}
             style={{ ...header.styles[media] }}>
             {(((grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
         </header>

@@ -24,7 +24,7 @@ export const WapEditFooter = (props: WapEditFooterProps) => {
             data-id={footer.id}
             data-kind={footer.kind}
             ref={ref => footer.ref = ref}
-            className={`wap-${footer.kind} ${selectedSection ? '' : 'dashed'}`}
+            className={`wap-${footer.kind} relative ${selectedSection ? '' : 'dashed'}`}
             style={{ ...footer.styles[media] }}>
             {(((grabMode !== 'resize-section') || selectedSection?.id === footer.id)) && <SectionMouseOver section={footer} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
         </footer>
