@@ -1,7 +1,7 @@
 type Props = {
     tag: keyof JSX.IntrinsicElements
     children: React.ReactNode
-    attributes?: React.HTMLAttributes<Element>;
+    attributes?: React.HTMLAttributes<Element>
     styles?: { [key: string]: string }
 }
 
