@@ -11,12 +11,13 @@ interface WapEditSectionProps {
     sections: Section[]
     setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
     setGrabMode: React.Dispatch<React.SetStateAction<string>>
-    grabMode: string
+    grabMode: string,
+    pageRef: HTMLElement
 
 }
 
 export const WapEditSection = (props: WapEditSectionProps) => {
-    const { section, media, selectedSection, sections, setSelectedSection, grabMode, setGrabMode } = props
+    const { section, media, selectedSection, sections, setSelectedSection, grabMode, setGrabMode, pageRef } = props
     const [addSectionBtnPos, setAddSectionPosition] = useState<'top' | 'bottom' | false>(false)
 
     const mousemoveHandler = (ev: MouseEvent) => {
@@ -28,19 +29,20 @@ export const WapEditSection = (props: WapEditSectionProps) => {
     }
 
     return (
-        <section
-            onMouseDown={mousedownHandler}
-            onMouseMove={ev => mousemoveHandler(ev.nativeEvent)}
-            data-id={section.id}
-            data-kind={section.kind}
-            ref={ref => section.ref = ref}
-            className={`wap-${section.kind} relative ${selectedSection ? '' : 'dashed'}`}
-            style={{ ...section.styles[media] }}>
-            {(((grabMode !== 'resize-section') || selectedSection?.id === section.id)) && <SectionMouseOver section={section} sections={sections} media={media} buttonPosition={(grabMode !== 'resize-section') && addSectionBtnPos} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
-            {/* {selectedSection?.ref && <SectionMouseOver section={selectedSection} sections={sections} media={media} buttonPosition={(isHovered && addSectionBtnPos)} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />} */}
-            {section.cmps.map(cmp => (<DynEl key={cmp.id} tag={cmp.tag} attributes={cmp.attributes || {}} styles={cmp.styles[media]}>
-                {cmp.txt}
-            </DynEl>))}
-        </section>
+        <div className="section-wrapper" style={{ height: section.styles[media].height, width: '100vw' }} onMouseDown={mousedownHandler}>
+            <section
+                onMouseMove={ev => mousemoveHandler(ev.nativeEvent)}
+                data-id={section.id}
+                data-kind={section.kind}
+                ref={ref => section.ref = ref}
+                className={`wap-${section.kind} relative ${selectedSection ? '' : 'dashed'}`}
+                style={{ ...section.styles[media], width: pageRef?.offsetWidth + 'px' }}>
+                {(((grabMode !== 'resize-section') || selectedSection?.id === section.id)) && <SectionMouseOver section={section} sections={sections} media={media} buttonPosition={(grabMode !== 'resize-section') && addSectionBtnPos} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
+                {/* {selectedSection?.ref && <SectionMouseOver section={selectedSection} sections={sections} media={media} buttonPosition={(isHovered && addSectionBtnPos)} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />} */}
+                {section.cmps.map(cmp => (<DynEl key={cmp.id} tag={cmp.tag} attributes={cmp.attributes || {}} styles={cmp.styles[media]}>
+                    {cmp.txt}
+                </DynEl>))}
+            </section>
+        </div>
     )
 }

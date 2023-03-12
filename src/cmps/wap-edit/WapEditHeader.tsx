@@ -10,10 +10,11 @@ interface WapEditHeaderProps {
     setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
     setGrabMode: React.Dispatch<React.SetStateAction<string>>
     grabMode: string
+    pageRef: HTMLElement
 }
 
 export const WapEditHeader = (props: WapEditHeaderProps) => {
-    const { header, media, selectedSection, sections, setSelectedSection, setGrabMode, grabMode } = props
+    const { header, media, selectedSection, sections, setSelectedSection, setGrabMode, grabMode, pageRef } = props
 
 
     const mousedownHandler = () => {
@@ -21,14 +22,15 @@ export const WapEditHeader = (props: WapEditHeaderProps) => {
     }
 
     return (
-        <header
-            onMouseDown={mousedownHandler}
-            data-id={header.id}
-            data-kind={header.kind}
-            ref={ref => header.ref = ref}
-            className={`wap-${header.kind} relative ${selectedSection ? '' : 'dashed'}`}
-            style={{ ...header.styles[media] }}>
-            {(((grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
-        </header>
+        <div className="section-wrapper" style={{height:header.styles[media].height, width: '100vw'}} onMouseDown={mousedownHandler}>
+            <header
+                data-id={header.id}
+                data-kind={header.kind}
+                ref={ref => header.ref = ref}
+                className={`wap-${header.kind} relative ${selectedSection ? '' : 'dashed'}`}
+                style={{ ...header.styles[media], width:pageRef?.offsetWidth + 'px' }}>
+                {(((grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
+            </header>
+        </div>
     )
 }

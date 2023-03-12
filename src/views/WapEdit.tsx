@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { WapEditFooter } from '../cmps/wap-edit/WapEditFooter'
 import { WapEditHeader } from '../cmps/wap-edit/WapEditHeader'
 import { Overlay } from '../cmps/wap-edit/Overlay'
-import { WapEditPanel } from '../cmps/wap-edit/WapEditPanel'
 import { WapEditSection } from '../cmps/wap-edit/WapEditSection'
 import { Cmp, Section } from '../interfaces/dynamic-element'
 import { Wap } from '../interfaces/wap'
@@ -134,17 +133,18 @@ const WapEdit = () => {
     }
 
     const resizeSectionHandler = (ev: MouseEvent) => {
-        const diff = ev.pageY < selectedSection!.ref!.getBoundingClientRect().top && ev.movementY > 0
+        if (!selectedSection?.ref) return
+        const diff = ev.pageY < selectedSection.ref.getBoundingClientRect().top && ev.movementY > 0
             ? 0
             : window.innerHeight - ev.clientY < 10 && ev.movementY >= 0
                 ? 5
                 : ev.movementY
-        const height = calcTotalHeight([selectedSection!], media) + diff + 'px'
-        const styles = selectedSection!.styles
+        const height = calcTotalHeight([selectedSection], media) + diff + 'px'
+        const styles = selectedSection.styles
         styles[media] = { ...styles[media], height }
-        selectedSection!.ref!.style.height = height
-        selectedSection!.styles = styles
-        setSelectedSection({ ...selectedSection! })
+        selectedSection.ref!.style.height = height
+        selectedSection.styles = styles
+        setSelectedSection({ ...selectedSection })
         if (ev.movementY >= 0 && window.innerHeight - ev.clientY < 10) (ev.target as HTMLElement).scrollIntoView({ block: 'end' })
         // if (ev.movementY < 0) (ev.target as HTMLElement).scrollIntoView(false)
         // if (window.innerHeight - ev.clientY)(ev.target as HTMLElement).scrollIntoView({block:'end'})
@@ -153,11 +153,11 @@ const WapEdit = () => {
     }
 
     const getSectionUnderPointer = (ev: MouseEvent) => {
-        const { clientX, clientY } = ev
+        const {  clientY } = ev
         let foundSection: Section | null = null
         for (let section of [header, ...sections, footer]) {
             if (!section.ref) continue
-            const { x, y, height } = section.ref.getBoundingClientRect()
+            const {y, height } = section.ref.getBoundingClientRect()
             if (clientY >= y && clientY <= y + height) {
                 foundSection = section
                 break
@@ -190,16 +190,16 @@ const WapEdit = () => {
         addedElRef.current!.hidden = true
     }
 
-    const hoveredSectionHandler = (ev: MouseEvent) => {
-        const target = ev.target! as HTMLElement
-        if (target.classList.contains('btn')) return
+    // const hoveredSectionHandler = (ev: MouseEvent) => {
+    //     const target = ev.target! as HTMLElement
+    //     if (target.classList.contains('btn')) return
 
-        const foundSection = getSectionUnderPointer(ev)
-        const position = foundSection ? getVerticalHalf(ev, foundSection.ref!) : addSectionPosition
-        if (position !== addSectionPosition) setAddSectionPosition(position)
+    //     const foundSection = getSectionUnderPointer(ev)
+    //     const position = foundSection ? getVerticalHalf(ev, foundSection.ref!) : addSectionPosition
+    //     if (position !== addSectionPosition) setAddSectionPosition(position)
 
-        if (!foundSection || foundSection !== hoveredSection) setHoveredSection(foundSection)
-    }
+    //     if (!foundSection || foundSection !== hoveredSection) setHoveredSection(foundSection)
+    // }
 
     useEffect(() => {
         document.addEventListener('mousemove', mousemoveHandler)
@@ -218,43 +218,26 @@ const WapEdit = () => {
             <div className="added-el absolute" ref={addedElRef}></div>
             <div className="page-container flex">
                 <ToolSidebar setSelectedSection={setSelectedSection} setAddedEl={addElHandler} media={media} setMouseRelPos={setMouseRelPos} />
-                {/* <WapEditPanel sections={[header, ...sections, footer]} media={media} /> */}
-
-
                 <div className="main-container relative grow-1" onMouseMove={ev => setHoveredSectionHandler(ev.nativeEvent)} onMouseLeave={() => setHoveredSectionHandler(null)}>
-
                     <main className='wap-edit-page__page relative' ref={pageRef}>
-                        {/* {[header, ...sections, footer].map(section => (<div key={`${section.id}-pseudo'`} className="absolute"></div>))} */}
-                        {/* {hoveredSection && hoveredSection.ref && <div className="shadow-hover absolute"
-                            style={{
-                                height: hoveredSection.ref.offsetHeight + 'px',
-                                width: '100vw',
-                                zIndex: '-1',
-                                top: hoveredSection.ref.getBoundingClientRect().top - 60 + 'px',
-                                left:-hoveredSection.ref.getBoundingClientRect().left+'px',
-                            }}
-                        >
-
-                        </div>} */}
-
                         <WapEditHeader header={header} media={media} selectedSection={selectedSection}
                             sections={[header, ...sections, footer]} grabMode={grabMode}
-                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />
+                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection}
+                            pageRef={pageRef.current!} />
                         {sections.map((section) => {
                             return (<WapEditSection
                                 key={`wap-${section.kind}__${section.id}}`}
                                 sections={[header, ...sections, footer]} grabMode={grabMode}
                                 setGrabMode={setGrabMode} setSelectedSection={setSelectedSection}
                                 section={section} media={media} selectedSection={selectedSection}
+                                pageRef={pageRef.current!}
                             />)
                         })}
                         <WapEditFooter footer={footer} media={media} selectedSection={selectedSection}
                             sections={[header, ...sections, footer]} grabMode={grabMode}
-                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />
-                        <div style={{ width: '100%', height: '60px' }}>
-
-                        </div>
-
+                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection}
+                            pageRef={pageRef.current!} />
+                        <div style={{ width: '100%', height: '60px' }}></div>
                     </main>
                     <Overlay pageRef={pageRef.current} wap={wap} sections={[header, ...sections, footer]} selectedSection={selectedSection} media={media} />
                 </div>
