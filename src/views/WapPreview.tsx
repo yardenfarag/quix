@@ -18,6 +18,8 @@ const DUMMY_WAP = {
                     txt: 'im h1',
                     name: 'h1',
                     tag: 'h1',
+                    kind: 'text',
+                    parent: null,
                     styles: {
                         small: {},
                         medium: {},
@@ -40,6 +42,8 @@ const DUMMY_WAP = {
                     txt: 'im p',
                     name: 'p',
                     tag: 'p',
+                    kind: 'text',
+                    parent: null,
                     styles: {
                         small: {},
                         medium: {},
@@ -62,6 +66,8 @@ const DUMMY_WAP = {
                     txt: 'im button',
                     name: 'button',
                     tag: 'button',
+                    kind: 'text',
+                    parent: null,
                     styles: {
                         small: {},
                         medium: {},
@@ -83,7 +89,9 @@ const DUMMY_WAP = {
                     id: 'f',
                     txt: 'im input',
                     name: 'input',
+                    kind: 'text',
                     tag: 'input',
+                    parent: null,
                     styles: {
                         small: {},
                         medium: {},

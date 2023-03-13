@@ -81,12 +81,14 @@ function getElementsStock() {
                             id: 'sdvjf-4fCCk',
                             txt: 'Add Heading 1',
                             name: 'header',
+                            kind: 'text',
                             tag: 'h1' as keyof JSX.IntrinsicElements,
                             styles: {
                                 small: {} as { [key: string]: string },
                                 medium: {} as { [key: string]: string },
                                 large: {} as { [key: string]: string },
                             },
+                            attributes: { className: 'dyn-el text' }
                         }
                     ] as Cmp[]
                 },
@@ -97,12 +99,14 @@ function getElementsStock() {
                             id: 'fwd8C-Cc9Dv',
                             txt: 'Big Title',
                             name: 'title',
+                            kind: 'text',
                             tag: 'h1' as keyof JSX.IntrinsicElements,
                             styles: {
                                 small: {} as { [key: string]: string },
                                 medium: {} as { [key: string]: string },
                                 large: {} as { [key: string]: string },
                             },
+                            attributes: { className: 'dyn-el text' }
                         }
                     ] as Cmp[]
                 },
@@ -113,12 +117,14 @@ function getElementsStock() {
                             id: '34fjD-jD6dK',
                             txt: 'Helvetica Light is an easy-to-read font, with tall and narrow letters, that works well on almost every site.',
                             name: 'paragraph',
+                            kind: 'text',
                             tag: 'p' as keyof JSX.IntrinsicElements,
                             styles: {
                                 small: {} as { [key: string]: string },
                                 medium: {} as { [key: string]: string },
                                 large: {} as { [key: string]: string },
                             },
+                            attributes: { className: 'dyn-el text' }
                         }
                     ] as Cmp[]
                 },

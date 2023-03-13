@@ -23,9 +23,13 @@ export interface Kind {
 
 export interface Cmp {
     id: string
-    txt: string
+    txt?: string
     name: string
+    parent: Section | null
     tag: keyof JSX.IntrinsicElements
+    prevTag?: keyof JSX.IntrinsicElements
+    containerRef?: HTMLElement | null
+    kind: string
     styles: {
         small: {[key: string]: string},
         medium: {[key: string]: string},

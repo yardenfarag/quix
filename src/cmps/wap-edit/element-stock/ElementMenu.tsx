@@ -8,7 +8,10 @@ interface ElMenuProps {
     setAddedEl: (el: Cmp | null) => void
     media: 'small' | 'medium' | 'large'
     closeMenu: () => void
-    setMouseRelPos: React.Dispatch<React.SetStateAction<number[]>>
+    setMouseRelPos: ({ x, y }?: {
+        x: number;
+        y: number;
+    }) => void
 }
 
 export const ElMenu = (props: ElMenuProps) => {
@@ -31,19 +34,15 @@ export const ElMenu = (props: ElMenuProps) => {
     const elMousedownHandler = (el: Cmp, ev: MouseEvent) => {
         const elCopy = JSON.parse(JSON.stringify(el)) as Cmp
         elCopy.id = makeId()
+        elCopy.ref = null
         const container = (ev.target as HTMLElement)
-        const { offsetX, offsetY } = ev
+        const { offsetX:x, offsetY:y } = ev
         const { height, width } = container.getBoundingClientRect()
-        elCopy.styles[media] = { ...elCopy.styles[media], height: height + 'px', width: width + 'px', position: 'absolute' }
+        elCopy.styles[media] = { ...elCopy.styles[media], height: height + 'px', width: width + 'px' }
         setAddedEl(elCopy)
         setSelectedEl(elCopy)
-        setMouseRelPos([offsetX, offsetY])
+        setMouseRelPos({x,y})
         closeMenu()
-    }
-
-    const mouseupHandler = () => {
-        setAddedEl(null)
-        setSelectedEl(null)
     }
 
     return (

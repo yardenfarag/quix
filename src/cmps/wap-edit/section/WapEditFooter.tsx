@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Section } from "../../interfaces/dynamic-element"
-import { SectionMouseOver } from "./SectionMouseOver"
+import { Section } from "../../../interfaces/dynamic-element"
+import { SectionMouseOver } from "../SectionMouseOver"
 
 interface WapEditFooterProps {
     footer: Section

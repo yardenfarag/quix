@@ -7,7 +7,7 @@
             &__tool-sidebar {
 
                 .el-menu {
-
+                    user-select:none;
                     * {
                         color: $text-black;
                     }

@@ -7,7 +7,7 @@ interface SectionMouseOverProps {
     media: 'large' | 'medium' | 'small'
     buttonPosition: 'top' | 'bottom' | false
     selectedSection: Section | null
-    setGrabMode: React.Dispatch<React.SetStateAction<string>>
+    setGrabMode: (mode:string)=>void
     setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
 
 }

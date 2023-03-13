@@ -5,8 +5,11 @@ import { ElMenu } from "./element-stock/ElementMenu"
 interface ToolSidebarProps {
     setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
     setAddedEl: (el: Cmp | null) => void
-    media: 'small'|'medium'|'large'
-    setMouseRelPos: React.Dispatch<React.SetStateAction<number[]>>
+    media: 'small' | 'medium' | 'large'
+    setMouseRelPos: ({ x, y }?: {
+        x: number;
+        y: number;
+    }) => void
 }
 const menuMap = {
     ElMenu
@@ -34,7 +37,7 @@ export const ToolSidebar = (props: ToolSidebarProps) => {
     return (
         <aside className="wap-edit-page__tool-sidebar relative flex column" onClick={mousedownHandler}>
             <section className={`el-menu absolute flex column ${isMenuExpanded ? 'expanded' : ''}`}>
-                {currMenu && menuMap[currMenu] && React.createElement(menuMap[currMenu] as FunctionComponent, { setAddedEl , media, closeMenu, setMouseRelPos} as (React.InputHTMLAttributes<HTMLInputElement> & React.ClassAttributes<HTMLInputElement>))}
+                {currMenu && menuMap[currMenu] && React.createElement(menuMap[currMenu] as FunctionComponent, { setAddedEl, media, closeMenu, setMouseRelPos } as (React.InputHTMLAttributes<HTMLInputElement> & React.ClassAttributes<HTMLInputElement>))}
             </section>
             <ul className="tool-list clean-list relative grow-1">
                 <li>
