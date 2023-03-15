@@ -26,7 +26,7 @@ const DUMMY_WAP = {
                         large: {height: '100px', backgroundColor: '#ddc'},
                     },
                     ref: null,
-                    attributes: 'h1'
+                    attributes: {}
                 }
             ] as Cmp[],
             kind: 'section',
@@ -50,7 +50,7 @@ const DUMMY_WAP = {
                         large: {height: '100px', backgroundColor: '#bfb'},
                     },
                     ref: null,
-                    attributes: 'p'
+                    attributes: {}
                 }
             ] as Cmp[],
             kind: 'section',
@@ -74,7 +74,7 @@ const DUMMY_WAP = {
                         large: {height: '100px', backgroundColor: '#fbb'},
                     },
                     ref: null,
-                    attributes: 'button'
+                    attributes: {}
                 }
             ] as Cmp[],
             kind: 'section',
@@ -87,7 +87,7 @@ const DUMMY_WAP = {
             cmps: [
                 {
                     id: 'f',
-                    txt: 'im input',
+                    txt: '',
                     name: 'input',
                     kind: 'text',
                     tag: 'input',
@@ -98,7 +98,7 @@ const DUMMY_WAP = {
                         large: {height: '100px', backgroundColor: '#bbf'},
                     },
                     ref: null,
-                    attributes: 'input'
+                    attributes: {}
                 }
             ] as Cmp[],
             kind: 'section',
