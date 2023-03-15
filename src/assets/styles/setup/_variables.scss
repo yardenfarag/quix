@@ -38,11 +38,17 @@ $footer-e-hover-bg: #fdd1ba;
 // Borders
 $selected-section-border-color: #6f56f9;
 $hovered-section-border-color: #dad2fe;
-$hovered-section-el-border-color: #7fb1ff;
+$selected-section-el-border-color:#136cff;
+$highlighted-section-el-border-color: #7fb1ff;
+$hovered-section-el-border-color: #d7e5fe;
 
 $selected-header-border-color: #fd620d;
+$bg: #e8ddd7; 
+// .93
+// 0.95);
 $hovered-header-border-color: #fcd2ba;
-
+$bg:#ffd4d0;
+// , 0.93)
 $selected-footer-border-color: #ff620d;
 $hovered-footer-border-color: #fcd2ba;
 
@@ -60,6 +66,8 @@ $button-hover-bg: #f7f8f8;
 $bg-semi-blue: #e7f0ff;
 $bg-selected-blue: #d6e6fe;
 $menu-item-hover-color: #2b5672;
+$hovered-section-el-fill-color: #588bdf;
+
 
 
 // Blacks

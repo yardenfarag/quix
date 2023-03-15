@@ -1,4 +1,4 @@
-import { Cmp } from "../../../interfaces/dynamic-element"
+import { Cmp } from "../../../models/dynamic-element"
 import DynEl from "../../general/DynEl"
 import { ELOverlay } from "./ElOverlay"
 
@@ -26,7 +26,7 @@ export const ElPreview = (props: ElPreviewProps) => {
 
     return (
         <div className="el-preview absolute" style={{ width: styles.width, height: styles.height, top: styles.top, left: styles.left, transform: styles.transform }}
-            ref={ref => el.containerRef = ref}>
+            ref={ref => ref ? el.containerRef = ref : null}>
             <DynEl key={el.id} tag={el.tag}
                 attributes={{
                     ...(el.attributes || {}),

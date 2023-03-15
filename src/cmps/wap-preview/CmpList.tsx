@@ -1,5 +1,5 @@
 import React from 'react'
-import { Cmp } from '../../interfaces/dynamic-element'
+import { Cmp } from '../../models/dynamic-element'
 import DynEl from '../general/DynEl'
 
 const CmpList = (props:any) => {

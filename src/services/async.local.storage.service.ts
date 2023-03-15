@@ -1,4 +1,4 @@
-import { Wap } from "../interfaces/wap"
+import { Wap } from "../models/wap"
 
 const DUMMY_WAPS = [
     {

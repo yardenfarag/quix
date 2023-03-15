@@ -1,10 +1,10 @@
-import { Section } from "../../interfaces/dynamic-element"
+import { Section } from "../../models/dynamic-element"
 import { SectionMouseOver } from "./SectionMouseOver"
 
 interface WapEditPanelProps {
     selectedSection: Section | null,
     sections: Section[]
-    setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
+    setSelectedSection: (section?: Section | null) => void
     setGrabMode: React.Dispatch<React.SetStateAction<string>>
     media: 'large' | 'medium' | 'small'
 }

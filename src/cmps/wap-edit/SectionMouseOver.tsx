@@ -1,4 +1,4 @@
-import { Section } from "../../interfaces/dynamic-element"
+import { Section } from "../../models/dynamic-element"
 import { calcTotalHeight, getVerticalHalf } from "../../services/util.service"
 
 interface SectionMouseOverProps {
@@ -8,7 +8,7 @@ interface SectionMouseOverProps {
     buttonPosition: 'top' | 'bottom' | false
     selectedSection: Section | null
     setGrabMode: (mode:string)=>void
-    setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
+    setSelectedSection: (section?: Section | null) => void
 
 }
 export const SectionMouseOver = (props: SectionMouseOverProps) => {

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Section } from "../../../interfaces/dynamic-element"
+import { Section } from "../../../models/dynamic-element"
 import { SectionMouseOver } from "../SectionMouseOver"
 
 interface WapEditHeaderProps {
@@ -7,7 +7,7 @@ interface WapEditHeaderProps {
     media: 'large' | 'medium' | 'small',
     selectedSection: Section | null
     sections: Section[]
-    setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
+    setSelectedSection: (section?: Section | null) => void
     setGrabMode: React.Dispatch<React.SetStateAction<string>>
     grabMode: string
     pageRef: HTMLElement
@@ -26,7 +26,7 @@ export const WapEditHeader = (props: WapEditHeaderProps) => {
             <header
                 data-id={header.id}
                 data-kind={header.kind}
-                ref={ref => header.ref = ref}
+                ref={ref => ref ? header.ref = ref:null}
                 className={`wap-${header.kind} relative ${selectedSection ? '' : 'dashed'}`}
                 style={{ ...header.styles[media], width:pageRef?.offsetWidth + 'px' }}>
                 {(((grabMode !== 'resize-section') || selectedSection?.id === header.id)) && <SectionMouseOver section={header} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}

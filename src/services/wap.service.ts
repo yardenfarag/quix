@@ -3,8 +3,9 @@ import { storageService } from './async.local.storage.service'
 // import { httpService } from './http.service.js'
 // import { userService } from './user.service.js'
 // import { makeId } from './util.service.js'
-import { Wap } from '../interfaces/wap'
-import { Cmp, Kind, Section } from '../interfaces/dynamic-element'
+import { Wap } from '../models/wap'
+import { Cmp, Kind, Section } from '../models/dynamic-element'
+import { makeId } from './util.service'
 
 
 const STORAGE_KEY = 'wap'
@@ -35,9 +36,94 @@ export const wapService = {
     save,
     remove,
     getEmptyWap,
+    getWapById,
+    getSectionById,
+    getElById,
     getElementsStock
 }
 
+export const dummyMap: Wap = {
+    id: makeId(),
+    name: 'my wap',
+    sections: [
+        {
+            id: makeId(),
+            name: 'site-header',
+            kind: 'header',
+            styles: { small: {}, medium: {}, large: { height: '60px' } },
+            cmps: [],
+        },
+        {
+            id: makeId(),
+            name: '',
+            cmps: [],
+            kind: 'section',
+            styles: { small: {}, medium: {}, large: { height: '200px' } },
+        },
+        {
+            id: makeId(),
+            name: '',
+            cmps: [
+                {
+                    id: "Phmr9-tzEbS",
+                    txt: "Helvetica Light is an easy-to-read font, with tall and narrow letters, that works well on almost every site.",
+                    name: "paragraph",
+                    parent: null,
+                    tag: "p",
+                    kind: 'text',
+                    styles: {
+                        small: {},
+                        medium: {},
+                        large: {
+                            height: "55.5px",
+                            width: "310px",
+                            top: "29px",
+                            left: "313px"
+                        }
+                    },
+                    attributes: { className: 'dyn-el text' },
+                        }
+            ],
+            kind: 'section',
+            styles: { small: {}, medium: {}, large: { height: '200px' } },
+        },
+        {
+            id: makeId(),
+            name: '',
+            cmps: [],
+            kind: 'section',
+            styles: { small: {}, medium: {}, large: { height: '200px' } },
+        },
+        {
+            id: makeId(),
+            name: '',
+            cmps: [],
+            kind: 'section',
+            styles: { small: {}, medium: {}, large: { height: '200px' } },
+        },
+        {
+            id: makeId(),
+            name: 'site-footer',
+            kind: 'footer',
+            cmps: [],
+            styles: { small: {}, medium: {}, large: { height: '60px' } },
+        }
+    ],
+    imgUrl: '',
+    styles: {
+        small: {},
+        medium: {},
+        large: {
+            margin: '40px',
+            maxWidth: '800px'
+        }
+    },
+    margin: {
+        small: 40,
+        medium: 40,
+        large: 40
+    }
+}
 
 async function query(filterBy = { txt: '' }) {
     // return httpService.get(STORAGE_KEY, filterBy)
@@ -102,6 +188,19 @@ function getEmptyWap() {
         }
     }
 }
+
+function getElById(wap: Wap, elId: string): Cmp | null {
+    let el: null | Cmp = null
+    wap.sections.some(section => {
+        el = section.cmps.find(e => e.id === elId) || null
+        return el
+    })
+    return el
+}
+
+function getSectionById(wap: Wap, sectionId: string) { return wap.sections.find(section => section.id === sectionId) || null }
+
+function getWapById(wapId: string) { return dummyMap }
 
 function getElementsStock() {
     return [

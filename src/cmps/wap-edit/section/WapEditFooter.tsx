@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Section } from "../../../interfaces/dynamic-element"
+import { Section } from "../../../models/dynamic-element"
 import { SectionMouseOver } from "../SectionMouseOver"
 
 interface WapEditFooterProps {
@@ -7,7 +7,7 @@ interface WapEditFooterProps {
     media: 'large' | 'medium' | 'small',
     selectedSection: Section | null
     sections: Section[]
-    setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>
+    setSelectedSection: (section?: Section | null) => void
     setGrabMode: React.Dispatch<React.SetStateAction<string>>
     grabMode: string
     pageRef: HTMLElement
@@ -24,7 +24,7 @@ export const WapEditFooter = (props: WapEditFooterProps) => {
             <footer
                 data-id={footer.id}
                 data-kind={footer.kind}
-                ref={ref => footer.ref = ref}
+                ref={ref => ref ? footer.ref = ref : null}
                 className={`wap-${footer.kind} relative ${selectedSection ? '' : 'dashed'}`}
                 style={{ ...footer.styles[media], width: pageRef?.offsetWidth + 'px' }}>
                 {(((grabMode !== 'resize-section') || selectedSection?.id === footer.id)) && <SectionMouseOver section={footer} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
