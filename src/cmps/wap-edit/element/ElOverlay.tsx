@@ -1,4 +1,4 @@
-import { Cmp } from "../../../interfaces/dynamic-element"
+import { Cmp } from "../../../models/dynamic-element"
 
 interface ElOverlayProps {
     el: Cmp

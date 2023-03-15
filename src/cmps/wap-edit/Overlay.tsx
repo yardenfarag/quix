@@ -1,5 +1,5 @@
-import { Section } from "../../interfaces/dynamic-element"
-import { Wap } from "../../interfaces/wap"
+import { Section } from "../../models/dynamic-element"
+import { Wap } from "../../models/wap"
 import { calcTotalHeight } from "../../services/util.service"
 
 interface WapEditOverlayProps {

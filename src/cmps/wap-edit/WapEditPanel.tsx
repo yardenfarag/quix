@@ -1,4 +1,4 @@
-import { Section } from "../../interfaces/dynamic-element"
+import { Section } from "../../models/dynamic-element"
 
 interface WapEditPanelProps {
     sections: Section[]

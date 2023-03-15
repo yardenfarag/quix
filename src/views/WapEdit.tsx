@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Overlay } from '../cmps/wap-edit/Overlay'
 import { WapEditSection } from '../cmps/wap-edit/section/WapEditSection'
-import { Cmp, Section } from '../interfaces/dynamic-element'
-import { Wap } from '../interfaces/wap'
+import { Cmp, Section } from '../models/dynamic-element'
+import { Wap } from '../models/wap'
 import { calcTotalHeight, extractValueFromTransform, getRotationAngleDiff, handleTransformChange, makeId } from '../services/util.service'
 import { ToolSidebar } from '../cmps/wap-edit/ToolSidebar'
 
@@ -45,26 +45,35 @@ const WapEdit = () => {
             large: 40
         }
     } as Wap
+
+    // Refs
+    const pageRef = useRef<HTMLElement>(null)
+    const addedElRef = useRef<HTMLDivElement>(null)
+
+    // Elements
+    const [page, setPage] = useState<HTMLElement | null>(pageRef.current)
     const [selectedSection, setSelectedSection] = useState<Section | null>(null)
+    const [highlightedEls, setHighlightedEls] = useState([] as Cmp[])
+    const selectedEl = useRef<Cmp | null>(null)
+    const addedEl = useRef<Cmp | null>(null)
     // const selectedSection = useRef<Section | null>(null)
     // const [hoveredSection, setHoveredSection] = useState<Section | null>(null)
     // const [addSectionPosition, setAddSectionPosition] = useState<'top' | 'bottom'>('bottom')
     // const [selectedEl.current, setSelectedEl] = useState<Cmp | null>(null)
-    const selectedEl = useRef<Cmp | null>(null)
     // const [addedEl, setAddedEl] = useState<Cmp | null>(null)
-    const addedEl = useRef<Cmp | null>(null)
+
+    // Mods
     const [media, setMedia] = useState<'large' | 'medium' | 'small'>('large')
-    // const [grabMode, grabMode.current=] = useState<string>('')
     const grabMode = useRef('')
-    // const [isQuickView, setIsQuickView] = useState(false)
-    const pageRef = useRef<HTMLElement>(null)
-    const [page, setPage] = useState<HTMLElement | null>(pageRef.current)
-    const addedElRef = useRef<HTMLDivElement>(null)
-    // const [mouseStartPos, setMouseStartPos] = useState({ x: 0, y: 0 })
     const mouseStartPos = useRef({ x: 0, y: 0 })
-    // const [mouseRelPos, setMouseRelPos] = useState([0, 0])
     const mouseRelPos = useRef({ x: 0, y: 0 })
-    const [userSelect, setUserSelect] = useState('auto' as 'auto'|'none')
+    const [userSelect, setUserSelect] = useState('auto' as 'auto' | 'none')
+    // const [grabMode, grabMode.current=] = useState<string>('')
+    // const [isQuickView, setIsQuickView] = useState(false)
+    // const [mouseStartPos, setMouseStartPos] = useState({ x: 0, y: 0 })
+    // const [mouseRelPos, setMouseRelPos] = useState([0, 0])
+
+    const isHighlighted = (el: Cmp) => { return !!highlightedEls.find(e => e.id === el.id) }
 
     const [sections, setSections] = useState([
         {
@@ -97,12 +106,10 @@ const WapEdit = () => {
                         }
                     },
                     attributes: { className: 'dyn-el text' },
-                    ref: null
                 } as Cmp
             ] as Cmp[],
             kind: 'section',
             styles: { small: {}, medium: {}, large: { height: '200px' } },
-            ref: null
         },
         {
             id: makeId(),
@@ -128,7 +135,6 @@ const WapEdit = () => {
         kind: 'header',
         styles: { small: {}, medium: {}, large: { height: '60px' } },
         cmps: [],
-        ref: null,
         panelRef: null
     } as Section)
     const [footer, setFooter] = useState({
@@ -137,20 +143,25 @@ const WapEdit = () => {
         kind: 'footer',
         cmps: [],
         styles: { small: {}, medium: {}, large: { height: '60px' } },
-        ref: null,
         panelRef: null
     } as Section)
 
 
     const connectCmpsAndParents = () => [header, footer, ...sections].forEach(section => section.cmps.forEach(cmp => cmp.parent = section))
 
-    const setGrabMode = (mode = '') => { 
+    const setGrabMode = (mode = '') => {
         grabMode.current = mode
         if (!mode) setUserSelect('auto')
         else setUserSelect('none')
     }
     const setSelectedEl = (el: Cmp | null = null) => { selectedEl.current = el }
-    // const setSelectedSection = (section: Section | null = null) => selectedSection = section
+    const selectSectionHandler = (section: Section | null = null) => {
+        if (section) {
+            if (selectedSection?.id !== section.id) setHighlightedEls(section.cmps)
+            else setHighlightedEls([])
+        }
+        setSelectedSection(section)
+    }
     const setAddedEl = (el: Cmp | null = null) => { addedEl.current = el }
     const setMouseRelPos = ({ x, y } = { x: 0, y: 0 }) => { mouseRelPos.current = { x, y } }
     const setMouseStartPos = ({ x, y } = { x: 0, y: 0 }) => mouseStartPos.current = { x, y }
@@ -168,9 +179,9 @@ const WapEdit = () => {
         setGrabMode('')
     }
 
-    const mousedownHandler = (ev: MouseEvent) => {
+    const clickHandler = (ev: MouseEvent) => {
         const foundSection = getSectionUnderPointer(ev)
-        if (!foundSection) setSelectedSection(null)
+        if (!foundSection) selectSectionHandler(null)
     }
 
     // const setHoveredSectionHandler = (ev: MouseEvent | null) => {
@@ -210,7 +221,7 @@ const WapEdit = () => {
         styles[media] = { ...styles[media], height }
         selectedSection.ref!.style.height = height
         selectedSection.styles = styles
-        setSelectedSection({ ...selectedSection })
+        selectSectionHandler({ ...selectedSection })
         if (ev.movementY >= 0 && window.innerHeight - ev.clientY < 10) (ev.target as HTMLElement).scrollIntoView({ block: 'end' })
         // if (ev.movementY < 0) (ev.target as HTMLElement).scrollIntoView(false)
         // if (window.innerHeight - ev.clientY)(ev.target as HTMLElement).scrollIntoView({block:'end'})
@@ -319,27 +330,27 @@ const WapEdit = () => {
 
     useEffect(() => {
         document.addEventListener('mousemove', mousemoveHandler)
-        document.addEventListener('mousedown', mousedownHandler)
+        document.addEventListener('click', clickHandler)
         document.addEventListener('mouseup', mouseupHandler)
         if (pageRef.current) setPage(pageRef.current)
         connectCmpsAndParents()
         return () => {
             document.removeEventListener('mousemove', mousemoveHandler)
-            document.removeEventListener('mousedown', mousedownHandler)
-            document.removeEventListener('mousedown', mousedownHandler)
+            document.removeEventListener('click', clickHandler)
+            document.removeEventListener('mouseup', mouseupHandler)
         }
     }, [pageRef.current, userSelect])
 
     return (
-        <section className='wap-edit-page' style={{ userSelect}} >
+        <section className='wap-edit-page' style={{ userSelect }} >
             <div className="added-el absolute" ref={addedElRef}></div>
             <div className="page-container flex">
-                <ToolSidebar setSelectedSection={setSelectedSection} setAddedEl={addElHandler} media={media} setMouseRelPos={setMouseRelPos} />
+                <ToolSidebar setSelectedSection={selectSectionHandler} setAddedEl={addElHandler} media={media} setMouseRelPos={setMouseRelPos} />
                 <div className="main-container relative grow-1">
                     <main className='wap-edit-page__page relative' ref={pageRef}>
                         <WapEditSection section={header} media={media} selectedSection={selectedSection}
                             sections={[header, ...sections, footer]} grabMode={grabMode.current}
-                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection}
+                            setGrabMode={setGrabMode} setSelectedSection={selectSectionHandler}
                             pageRef={page!} onEditElHandler={onElEditHandler}
                             onSaveElHandler={onSaveElHandler} onSelectEl={elSelectedHandler}
                             onStartRotate={startElRotation} selectedEl={selectedEl.current}
@@ -348,7 +359,7 @@ const WapEdit = () => {
                             return (<WapEditSection
                                 key={`wap-${section.kind}__${section.id}}`}
                                 setGrabMode={setGrabMode} sections={[header, ...sections, footer]} grabMode={grabMode.current}
-                                setSelectedSection={setSelectedSection}
+                                setSelectedSection={selectSectionHandler}
                                 section={section} media={media} selectedSection={selectedSection}
                                 pageRef={page!} onEditElHandler={onElEditHandler}
                                 onSaveElHandler={onSaveElHandler} onSelectEl={elSelectedHandler}
@@ -357,7 +368,7 @@ const WapEdit = () => {
                         })}
                         <WapEditSection section={footer} media={media} selectedSection={selectedSection}
                             sections={[header, ...sections, footer]} grabMode={grabMode.current}
-                            setGrabMode={setGrabMode} setSelectedSection={setSelectedSection}
+                            setGrabMode={setGrabMode} setSelectedSection={selectSectionHandler}
                             pageRef={page!} onEditElHandler={onElEditHandler}
                             onSaveElHandler={onSaveElHandler} onSelectEl={elSelectedHandler}
                             onStartRotate={startElRotation} selectedEl={selectedEl.current}

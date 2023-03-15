@@ -1,4 +1,4 @@
-import { Cmp, Section } from "../interfaces/dynamic-element"
+import { Cmp, Section } from "../models/dynamic-element"
 
 export function makeId(blockSize = 5, blockCount = 2) {
     const CHARS = 'abcdefghojklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0987654321'

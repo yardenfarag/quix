@@ -1,4 +1,5 @@
 import React from "react"
+import { Wap } from "./wap"
 
 export interface Section {
     id: string
@@ -10,7 +11,7 @@ export interface Section {
         large:{[key:string]:string}
     }
     cmps: Cmp[]
-    ref: HTMLElement | null
+    ref?: HTMLElement
 }
 
 export interface Kind {
@@ -28,13 +29,13 @@ export interface Cmp {
     parent: Section | null
     tag: keyof JSX.IntrinsicElements
     prevTag?: keyof JSX.IntrinsicElements
-    containerRef?: HTMLElement | null
+    containerRef?: HTMLElement
     kind: string
     styles: {
         small: {[key: string]: string},
         medium: {[key: string]: string},
         large: {[key: string]: string},
     }
-    ref: HTMLElement | null
+    ref?: HTMLElement
     attributes?: React.HTMLAttributes<Element>
 }

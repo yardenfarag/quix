@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Section } from '../interfaces/dynamic-element'
-import { Wap } from '../interfaces/wap'
-import { Cmp } from '../interfaces/dynamic-element'
+import { Section } from '../models/dynamic-element'
+import { Wap } from '../models/wap'
+import { Cmp } from '../models/dynamic-element'
 import DynEl from '../cmps/general/DynEl'
 import CmpList from '../cmps/wap-preview/CmpList'
 
@@ -25,13 +25,11 @@ const DUMMY_WAP = {
                         medium: {},
                         large: {height: '100px', backgroundColor: '#ddc'},
                     },
-                    ref: null,
                     attributes: 'h1'
                 }
             ] as Cmp[],
             kind: 'section',
             styles: { small: {}, medium: {}, large: { height: '200px', backgroundColor: '#bfb' } },
-            ref: null,
         },
         {
             id: 'b',
@@ -49,13 +47,11 @@ const DUMMY_WAP = {
                         medium: {},
                         large: {height: '100px', backgroundColor: '#bfb'},
                     },
-                    ref: null,
                     attributes: 'p'
                 }
             ] as Cmp[],
             kind: 'section',
             styles: { small: {}, medium: {}, large: { height: '200px', backgroundColor: '#fbb' } },
-            ref: null
         },
         {
             id: 'c',
@@ -73,13 +69,11 @@ const DUMMY_WAP = {
                         medium: {},
                         large: {height: '100px', backgroundColor: '#fbb'},
                     },
-                    ref: null,
                     attributes: 'button'
                 }
             ] as Cmp[],
             kind: 'section',
             styles: { small: {}, medium: {}, large: { height: '200px', backgroundColor: '#bbf' } },
-            ref: null
         },
         {
             id: 'd',
@@ -97,13 +91,11 @@ const DUMMY_WAP = {
                         medium: {},
                         large: {height: '100px', backgroundColor: '#bbf'},
                     },
-                    ref: null,
                     attributes: 'input'
                 }
             ] as Cmp[],
             kind: 'section',
             styles: { small: {}, medium: {}, large: { height: '200px', backgroundColor: '#ddc' } },
-            ref: null
         }
     ] as Section[],
     imgUrl: '',

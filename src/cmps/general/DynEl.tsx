@@ -6,6 +6,7 @@ type Props = {
     attributes?: React.HTMLAttributes<Element>
     styles?: { [key: string]: string }
     setRefHandler?: (ref: HTMLElement) => void
+
 }
 
 const DynEl = (props: Props) => {

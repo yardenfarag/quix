@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Cmp, Kind } from "../../../interfaces/dynamic-element"
+import { Cmp, Kind } from "../../../models/dynamic-element"
 import { debounce, makeId } from "../../../services/util.service"
 import { wapService } from "../../../services/wap.service"
 import DynEl from "../../general/DynEl"
@@ -34,7 +34,7 @@ export const ElMenu = (props: ElMenuProps) => {
     const elMousedownHandler = (el: Cmp, ev: MouseEvent) => {
         const elCopy = JSON.parse(JSON.stringify(el)) as Cmp
         elCopy.id = makeId()
-        elCopy.ref = null
+        delete elCopy.ref 
         const container = (ev.target as HTMLElement)
         const { offsetX:x, offsetY:y } = ev
         const { height, width } = container.getBoundingClientRect()
