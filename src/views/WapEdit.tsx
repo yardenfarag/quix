@@ -239,12 +239,9 @@ const WapEdit = () => {
         const { clientX: x, clientY: y } = ev
         const startAngle = extractValueFromTransform(selectedEl.styles[media], 'rotate')
         const angle = getRotationAngleDiff(ref, mouseStartPos.current, { x, y }) + startAngle
-        const style = handleTransformChange(selectedEl.styles[media], `rotate(${angle}deg)`)
-        // selectedEl.styles[media] = styles
-        const elToSave = Object.assign({},selectedEl,{styles:{...selectedEl.styles,[media]:style}})
+        const styles = handleTransformChange(selectedEl.styles[media], `rotate(${angle}deg)`)
+        const elToSave = Object.assign({},selectedEl,{styles:{...selectedEl.styles,[media]:styles}})
         dispatch(saveEl(elToSave))
-        // console.log(elToSave)
-
         mouseStartPosHandler(null)
     }
 
