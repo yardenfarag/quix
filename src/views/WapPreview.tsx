@@ -78,7 +78,7 @@ const DUMMY_WAP = {
             cmps: [
                 {
                     id: 'f',
-                    txt: 'im input',
+                    txt: '',
                     name: 'input',
                     kind: 'text',
                     tag: 'input',

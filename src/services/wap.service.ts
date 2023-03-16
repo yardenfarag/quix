@@ -4,11 +4,31 @@ import { storageService } from './async.local.storage.service'
 // import { userService } from './user.service.js'
 // import { makeId } from './util.service.js'
 import { Wap } from '../models/wap'
-import { Cmp, Kind } from '../models/dynamic-element'
+import { Cmp, Kind, Section } from '../models/dynamic-element'
 import { makeId } from './util.service'
 
 
 const STORAGE_KEY = 'wap'
+
+const DUMMY_WAPS = [{
+    id: 'wap1',
+    name: 'my wap',
+    sections: [] as Section[],
+    imgUrl: '',
+    styles: {
+        small: {},
+        medium: {},
+        large: {
+            margin: '40px',
+            maxWidth: '800px'
+        }
+    },
+    margin: {
+        small: 40,
+        medium: 40,
+        large: 40
+    }
+}] as Wap[]
 
 export const wapService = {
     query,
@@ -106,8 +126,9 @@ export const dummyWap: Wap = {
 
 async function query(filterBy = { txt: '' }) {
     // return httpService.get(STORAGE_KEY, filterBy)
+    // return DUMMY_WAP
 
-    var waps = await storageService.query(STORAGE_KEY)
+    var waps = await storageService.query(STORAGE_KEY) || DUMMY_WAPS
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         waps = waps.filter((wap: Wap) => regex.test(wap.name))
@@ -147,10 +168,23 @@ async function save(wap: Wap) {
 
 function getEmptyWap() {
     return {
-        id: '',
+        id: Math.random().toString(),
         name: '',
+        sections: [] as Section[],
         imgUrl: '',
-        cmps: []
+        styles: {
+            small: {},
+            medium: {},
+            large: {
+                margin: '40px',
+                maxWidth: '800px'
+            }
+        },
+        margin: {
+            small: 40,
+            medium: 40,
+            large: 40
+        }
     }
 }
 

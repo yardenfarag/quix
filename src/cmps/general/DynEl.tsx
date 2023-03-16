@@ -12,7 +12,8 @@ type Props = {
 const DynEl = (props: Props) => {
     const { tag, children, attributes, styles = {}, setRefHandler = null } = props
     const Element = tag
-
+    console.log(props);
+    
     const onSetRef=(ref:HTMLElement)=> {
         if (setRefHandler) setRefHandler(ref)
     }
