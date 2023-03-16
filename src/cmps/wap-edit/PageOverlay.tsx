@@ -1,20 +1,20 @@
 import { Section } from "../../models/dynamic-element"
 import { Wap } from "../../models/wap"
-import { calcTotalHeight } from "../../services/util.service"
+import { GlobalRef } from "../../views/WapEdit"
 
 interface WapEditOverlayProps {
     sections: Section[]
     media: 'large' | 'medium' | 'small'
     wap: Wap
     selectedSection: Section | null
-    pageRef: HTMLElement | null
+    globalRef: GlobalRef
 }
-export const Overlay = (props: WapEditOverlayProps) => {
-    const { sections, media, wap, selectedSection, pageRef } = props
+export const PageOverlay = (props: WapEditOverlayProps) => {
+    const { sections, media, wap, selectedSection, globalRef } = props
 
-    const margin = !pageRef
+    const margin = !globalRef.ref
         ? wap.styles[media].margin
-        : pageRef.offsetWidth
+        : globalRef.ref.offsetWidth
 
 
     return (
@@ -34,7 +34,7 @@ export const Overlay = (props: WapEditOverlayProps) => {
                         }}></div>}
                 </div>)
             })}
-            <div className={`wap-overlay ${!selectedSection ? 'dashed' : ''}`}
+            <div className={`wap-overlay ${!selectedSection ? 'dashed' : ''} grow-1`}
                 style={{ height: '60px' }}
             >
                 {!selectedSection && <div className="dashed-pseudo" style={{

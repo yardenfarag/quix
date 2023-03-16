@@ -1,5 +1,5 @@
 import { Section } from "../../models/dynamic-element"
-import { SectionMouseOver } from "./SectionMouseOver"
+import { SectionOverlay } from "./section/SectionOverlay"
 
 interface WapEditPanelProps {
     selectedSection: Section | null,
@@ -25,7 +25,7 @@ export const BackgroundPanel = (props: WapEditPanelProps) => {
                     <div className="relative" style={{height:'100%'}}>
                     <div className="absolute" style={{zIndex:'19', width:'calc(100%)',height:'100%'}}>
 
-                    {<SectionMouseOver section={section} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />}
+                    {/* {<SectionOverlay section={section} sections={sections} media={media} buttonPosition={false} selectedSection={selectedSection} setGrabMode={setGrabMode} setSelectedSection={setSelectedSection} />} */}
                     </div>
                     </div>
 

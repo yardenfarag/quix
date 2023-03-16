@@ -15,7 +15,7 @@ export interface Wap {
         medium: number
         large: number
     }
-
+    ref?: HTMLElement
 }
 
 export interface EditSidebar {

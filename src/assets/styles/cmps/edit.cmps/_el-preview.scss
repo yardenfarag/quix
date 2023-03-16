@@ -9,21 +9,21 @@
                     .wap-footer {
                         .el-preview {
 
-                            textarea{
+                            textarea {
                                 outline: none;
                                 border: none;
                                 resize: none;
                             }
-                            .dyn-el {
-                            }
 
-                            @include hover-supported() {
+                            &.highlighted {
                                 .el-overlay {
+                                    border-color: $highlighted-section-el-border-color;
+
                                     .el-title {
-                                        display: block;
+                                        color: $el-title-hover-color;
+                                        background-color: $highlighted-section-el-border-color;
                                     }
                                 }
-
                             }
 
                             .el-overlay {
@@ -64,20 +64,33 @@
                                     }
                                 }
                             }
+
+                            &.selected{
+                                .el-overlay{
+                                    .rotate-btn{
+                                        display: flex;
+                                    }
+                                }
+                            }
                         }
+
                     }
 
                     .wap-section {
-                        &.selected {
-                            .el-preview {
-                                .dyn-el {
-                                }
-                                .el-overlay {
-                                    border-color: $hovered-section-el-border-color;
 
-                                    .el-title {
-                                        color: $el-title-hover-color;
-                                        background-color: $hovered-section-el-border-color;
+                        &.selected,
+                        &.highlighted {
+
+                            .el-preview:not(.selected) {
+                                @include hover-supported() {
+                                    .el-overlay {
+                                        border-color: $hovered-section-el-border-color;
+
+                                        .el-title {
+                                            display: block;
+                                            color: $el-title-hover-color;
+                                            background-color: $hovered-section-el-border-color;
+                                        }
                                     }
                                 }
                             }

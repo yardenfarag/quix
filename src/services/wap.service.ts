@@ -22,7 +22,7 @@ export const wapService = {
     getElementsStock
 }
 
-export const dummyMap: Wap = {
+export const dummyWap: Wap = {
     id: makeId(),
     name: 'my wap',
     sections: [
@@ -48,7 +48,6 @@ export const dummyMap: Wap = {
                     id: "Phmr9-tzEbS",
                     txt: "Helvetica Light is an easy-to-read font, with tall and narrow letters, that works well on almost every site.",
                     name: "paragraph",
-                    parent: null,
                     tag: "p",
                     kind: 'text',
                     styles: {
@@ -166,7 +165,7 @@ function getElById(wap: Wap, elId: string): Cmp | null {
 
 function getSectionById(wap: Wap, sectionId: string) { return wap.sections.find(section => section.id === sectionId) || null }
 
-function getWapById(wapId: string) { return dummyMap }
+function getWapById(wapId: string) { return dummyWap }
 
 function getElementsStock() {
     return [

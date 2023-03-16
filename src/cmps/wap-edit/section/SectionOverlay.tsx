@@ -1,19 +1,20 @@
-import { Section } from "../../models/dynamic-element"
-import { calcTotalHeight, getVerticalHalf } from "../../services/util.service"
+import { Section } from "../../../models/dynamic-element"
+import { GrabMode } from "../../../store/wap-edit.store"
+import { SectionRef } from "../../../views/WapEdit"
 
-interface SectionMouseOverProps {
+interface SectionOverlayProps {
     section: Section
     sections: Section[]
     media: 'large' | 'medium' | 'small'
     buttonPosition: 'top' | 'bottom' | false
     selectedSection: Section | null
-    setGrabMode: (mode:string)=>void
+    setGrabMode: (mode: GrabMode) => void
     setSelectedSection: (section?: Section | null) => void
+    sectionRef: SectionRef
 
 }
-export const SectionMouseOver = (props: SectionMouseOverProps) => {
-    const { section, sections, media, buttonPosition, selectedSection, setGrabMode, setSelectedSection } = props
-    const sectionIdx = sections.findIndex(sect => sect.id === section.id)
+export const SectionOverlay = (props: SectionOverlayProps) => {
+    const { section, media, buttonPosition, selectedSection, setGrabMode, setSelectedSection, sectionRef } = props
 
     const resizeHandler = (ev: MouseEvent) => {
         setSelectedSection(section)
@@ -32,7 +33,7 @@ export const SectionMouseOver = (props: SectionMouseOverProps) => {
                 height: section.styles[media].height,
                 width: 100 + '%'
             }}>
-                <div className="dashed-background absolute"></div>
+            <div className="dashed-background absolute"></div>
             <div className="options">
                 <span className={`section-title ${section.kind} flex center absolute`}>
                     <span className="capitalize">{section.kind + ': '}</span>

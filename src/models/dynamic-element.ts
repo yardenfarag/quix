@@ -11,7 +11,6 @@ export interface Section {
         large:{[key:string]:string}
     }
     cmps: Cmp[]
-    ref?: HTMLElement
 }
 
 export interface Kind {
@@ -26,16 +25,14 @@ export interface Cmp {
     id: string
     txt?: string
     name: string
-    parent: Section | null
+    parentId?: string
     tag: keyof JSX.IntrinsicElements
     prevTag?: keyof JSX.IntrinsicElements
-    containerRef?: HTMLElement
     kind: string
     styles: {
         small: {[key: string]: string},
         medium: {[key: string]: string},
         large: {[key: string]: string},
     }
-    ref?: HTMLElement
     attributes?: React.HTMLAttributes<Element>
 }

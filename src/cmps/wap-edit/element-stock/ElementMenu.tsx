@@ -34,7 +34,6 @@ export const ElMenu = (props: ElMenuProps) => {
     const elMousedownHandler = (el: Cmp, ev: MouseEvent) => {
         const elCopy = JSON.parse(JSON.stringify(el)) as Cmp
         elCopy.id = makeId()
-        delete elCopy.ref 
         const container = (ev.target as HTMLElement)
         const { offsetX:x, offsetY:y } = ev
         const { height, width } = container.getBoundingClientRect()

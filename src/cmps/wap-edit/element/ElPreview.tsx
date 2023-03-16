@@ -1,4 +1,5 @@
 import { Cmp } from "../../../models/dynamic-element"
+import { ElRef } from "../../../views/WapEdit"
 import DynEl from "../../general/DynEl"
 import { ELOverlay } from "./ElOverlay"
 
@@ -9,10 +10,12 @@ interface ElPreviewProps {
     onBlur: (el: Cmp, txt: string) => void
     onStartRotate: (ev: MouseEvent, el: Cmp) => void
     selectedEl: Cmp | null
+    elRef: ElRef
+    highlightedEls: Cmp[]
 }
 
 export const ElPreview = (props: ElPreviewProps) => {
-    const { el, onClick, onBlur, media, onStartRotate, selectedEl } = props
+    const { el, onClick, onBlur, media, onStartRotate, selectedEl, elRef, highlightedEls } = props
     const styles = el.styles[media]
 
     const cmpClickHandler = (ev: MouseEvent, el: Cmp) => {
@@ -23,10 +26,11 @@ export const ElPreview = (props: ElPreviewProps) => {
         const txt = (ev.target as HTMLTextAreaElement).value
         onBlur(el, txt)
     }
+    const isHighlighted = !!highlightedEls.find(e => e.id === el.id)
 
     return (
-        <div className="el-preview absolute" style={{ width: styles.width, height: styles.height, top: styles.top, left: styles.left, transform: styles.transform }}
-            ref={ref => ref ? el.containerRef = ref : null}>
+        <div className={`el-preview absolute ${isHighlighted ? 'highlighted' : ''} ${selectedEl?.id === el.id ? 'selected' : ''}`} style={{ width: styles.width, height: styles.height, top: styles.top, left: styles.left, transform: styles.transform }}
+            ref={ref => ref ? elRef.containerRef = ref : null}>
             <DynEl key={el.id} tag={el.tag}
                 attributes={{
                     ...(el.attributes || {}),
@@ -34,7 +38,7 @@ export const ElPreview = (props: ElPreviewProps) => {
                     onBlur: (ev) => { cmpBlurHandler(ev.nativeEvent, el) }
                 }
                 }
-                setRefHandler={(ref: HTMLElement) => el.ref = ref}
+                setRefHandler={(ref: HTMLElement) => ref ? elRef.ref = ref : null}
                 styles={Object.assign({}, { ...el.styles[media] }, { transform: '' })}>
                 {el.txt}
             </DynEl>
