@@ -1,3 +1,40 @@
 .app-header{
-    height: $header-height;
+    box-shadow: 0 4px 2px -2px #cecece;
+    div {
+        padding: 5px;
+        padding-inline: 12px;
+        margin-top: -3px;
+        gap: 35px;
+        .logo {
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        .header-nav li {
+            margin-top: 6px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+        
+        .login-signup li a{
+            padding: 8px;
+            margin-left: 10px;
+            &.login {
+                text-decoration: underline;
+            }
+            &.get-started {
+                cursor: pointer;
+                padding-inline: 26px;
+                padding-block: 10px;
+                color: $clr1;
+                background-color: $call-to-action;
+                border-radius: 2rem;
+                transition: filter 0.3s ease-in-out;
+                &:hover {
+                    filter:brightness(120%)
+                }
+            }
+        }
+    }
 }

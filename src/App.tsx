@@ -6,16 +6,13 @@ import HomePage from './views/HomePage';
 import WapList from './views/WapList';
 import WapEdit from './views/WapEdit';
 import WapPreview from './views/WapPreview';
+import { AppHeader } from './cmps/AppHeader';
 
 function App() {
   return (
     <Router>
+      <AppHeader/>
       <section className="App">
-        <nav className='app-header flex between' style={{ width: '400px' }}>
-          <Link to='/website'>WapList</Link>
-          <Link to='/website/1'>WapPreview</Link>
-          <Link to='/website/1/edit'>WapEdit</Link>
-        </nav>
         <Routes>
           <Route path='/website/:id/edit' element={<WapEdit />} />
           <Route path='/website/:id' element={<WapPreview />} />
